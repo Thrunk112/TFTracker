@@ -8,7 +8,7 @@ Length can be adjusted on line 30 in ms
 uses UnitXP timers that only trigger when the time comes, rather than every frame. And run in a different thread from the game.
 
 --------------------------------------------------
--- Example macro
+Example macro
 --------------------------------------------------
---/run if not TF_UP then CastSpellByName("Tiger's Fury") end
---/cast Claw
+/run if not TF_UP then CastSpellByName("Tiger's Fury") end <br>
+/cast Claw
