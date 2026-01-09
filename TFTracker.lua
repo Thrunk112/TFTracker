@@ -32,6 +32,7 @@ end
 f:RegisterEvent("PLAYER_ENTERING_WORLD")
 f:RegisterEvent("UNIT_CASTEVENT")
 f:RegisterEvent("PLAYER_LOGOUT")
+f:RegisterEvent("PLAYER_DEAD")
 
 f:SetScript("OnEvent", function()
     if event == "PLAYER_ENTERING_WORLD" then
@@ -42,20 +43,23 @@ f:SetScript("OnEvent", function()
         DEFAULT_CHAT_FRAME:AddMessage("|cff00ffff[TF Tracker]|r loaded")
         this:UnregisterEvent("PLAYER_ENTERING_WORLD")
         return
-    end
-
-    if event == "UNIT_CASTEVENT" and arg1 == PLAYER_GUID then
+    elseif event == "UNIT_CASTEVENT" and arg1 == PLAYER_GUID then
         if arg4 ~= TF_SPELL_ID then return end
         StartTFTimer()
         return
-    end
-
-    if event == "PLAYER_LOGOUT" then
+	elseif event == "PLAYER_DEAD" then
         if TF_TIMER_ID then
             UnitXP("timer", "disarm", TF_TIMER_ID)
             TF_TIMER_ID = nil
         end
         TF_UP = false
         return
-    end
+	elseif event == "PLAYER_LOGOUT" then
+        if TF_TIMER_ID then
+            UnitXP("timer", "disarm", TF_TIMER_ID)
+            TF_TIMER_ID = nil
+        end
+        TF_UP = false
+        return
+	end
 end)
